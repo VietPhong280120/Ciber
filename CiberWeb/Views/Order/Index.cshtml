@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+ <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+<div class="card-body table-responsive">
+<table class="table table-bordered" id="datatablesSimple">
+    <thead>
+        <tr>
+            <th>
+                Product name
+            </th>
+            <th>
+                Category name
+            </th>
+            <th>
+                Customer Name
+            </th>
+            <th>
+              Order Date
+            </th>
+            <th>
+                Amount
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+</div>
+<p style="float:right">
+    <a asp-action="CreateOrder">Create New</a>
+</p>
+@section Scripts{
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#datatablesSimple").dataTable(
+        {   processing:true,
+            serverSide:true,
+            ajax:{
+                url:"/Order/GetOrderList",
+                type:'POST',
+                dataType: "json",
+
+            },  
+            columns: [
+            {'data':'productName'},
+            {'data':'categoryName'},
+            {'data':'customerName'},
+            {'data':'orderDate'},
+            {'data':'amount'},
+            ]
+        }); 
+       
+        
+    });
+</script>
+}
